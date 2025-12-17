@@ -18,4 +18,8 @@ export class DoctorService {
   async createDoctor(data: Partial<Doctor>) {
     return this.doctorModel.create(data);
   }
+
+   async findById(id: string) {
+    return this.doctorModel.findById(id);
+  }
 }

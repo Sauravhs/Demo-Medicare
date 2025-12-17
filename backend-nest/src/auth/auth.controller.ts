@@ -1,4 +1,4 @@
- import {
+import {
   Body,
   Controller,
   Get,
@@ -11,6 +11,7 @@ import { RegisterDto } from './dto/registerUser.dto';
 import { AuthGuard } from './auth.guard';
 import { UserService } from 'src/user/user.service';
 import { LoginDto } from './dto/login.dto';
+import type { AuthenticatedRequest } from './auth.types';
 
 @Controller('auth') // /auth/register
 export class AuthController {
@@ -29,11 +30,10 @@ export class AuthController {
   async login(@Body() loginDto: LoginDto) {
     return this.authService.loginUser(loginDto);
   }
-   
 
   @UseGuards(AuthGuard)
   @Get('profile')
-  async getProfile(@Request() req) {
+  async getProfile(@Request() req: AuthenticatedRequest) {
     const userId = req.user.sub;
 
     const user = await this.userService.getUserById(userId);

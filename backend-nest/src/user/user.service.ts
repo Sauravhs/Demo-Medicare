@@ -1,4 +1,4 @@
- import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { RegisterDto } from 'src/auth/dto/registerUser.dto';
 import { User } from './schemas/user.schema';
@@ -19,7 +19,7 @@ export class UserService {
         email: registerUserDto.email,
         password: registerUserDto.password,
       });
-    } catch (error) {
+    } catch (error: any) {
       if (error.code === 11000) {
         throw new ConflictException('Email is already in use');
       }
@@ -32,10 +32,7 @@ export class UserService {
   }
 
   // user.service.ts
-   async getUserById(id: string) {
+  async getUserById(id: string) {
     return await this.userModel.findOne({ _id: id });
   }
- 
-
-
 }

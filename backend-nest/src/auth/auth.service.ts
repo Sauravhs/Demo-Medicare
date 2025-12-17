@@ -1,4 +1,4 @@
- import {
+import {
   Injectable,
   UnauthorizedException,
   ConflictException,
@@ -32,7 +32,7 @@ export class AuthService {
       password: hashedPassword,
     });
 
-    const payload = { sub: user._id, email: user.email };
+    const payload = { sub: user._id, email: user.email, role: user.role };
     const access_token = await this.jwtService.signAsync(payload);
 
     return { access_token };
@@ -51,7 +51,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials');
     }
 
-    const payload = { sub: user._id, email: user.email };
+    const payload = { sub: user._id, email: user.email, role: user.role };
     const access_token = await this.jwtService.signAsync(payload);
 
     return { access_token };

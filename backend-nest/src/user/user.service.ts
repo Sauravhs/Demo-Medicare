@@ -19,8 +19,9 @@ export class UserService {
         email: registerUserDto.email,
         password: registerUserDto.password,
       });
-    } catch (error: any) {
-      if (error.code === 11000) {
+    } catch (error: unknown) {
+      const mongoError = error as { code?: number };
+      if (mongoError.code === 11000) {
         throw new ConflictException('Email is already in use');
       }
       throw error;
